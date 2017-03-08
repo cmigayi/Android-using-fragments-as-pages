@@ -15,6 +15,12 @@
         android:id="@+id/username"
         android:hint="Enter Usename"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit"
+        android:text="Send"/>
+
 
 
 </LinearLayout>

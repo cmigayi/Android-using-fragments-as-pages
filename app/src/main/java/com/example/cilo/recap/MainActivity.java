@@ -23,11 +23,14 @@ public class MainActivity extends AppCompatActivity {
     Button btn;
     FrameLayout frame;
     Fragment frag;
+    Common common;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        common = new Common(getSupportFragmentManager());
 
         //FrameLayout is where all the pages are displayed, page-manager of some sort
         frame = (FrameLayout) findViewById(R.id.frag);
@@ -36,18 +39,10 @@ public class MainActivity extends AppCompatActivity {
         frag  = new FragementOne();
 
         //Setup the page, the fragments
-        getPage(frame,frag);
+        common.getPage(frame,frag);
     }
 
-    //method to help manage the fragments
-    public void getPage(FrameLayout fl, Fragment fr){
 
-        int fid = fl.getId();
-
-        getSupportFragmentManager().
-                beginTransaction().
-                add(fid,fr).commit();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.home:
                 //home is selected, initialize its page
                 frag = new FragementOne();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("frame",frame.getId());
+                frag.setArguments(bundle);
+
                 break;
             case R.id.settings:
                 //Settings is selected, initialize its page
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //setup the page selected in the fragment method.
-        getPage(frame,frag);
+        common.getPage(frame,frag);
 
         return false;
     }
