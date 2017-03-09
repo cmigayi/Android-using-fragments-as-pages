@@ -18,14 +18,16 @@ import android.widget.Toast;
 public class FragementOne extends Fragment{
 
     Common common;
+    SharedPreference sharedPreference;
     FrameLayout frame;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
        final View view = inflater.inflate(R.layout.fragement_one,container,false);
 
         common = new Common(getFragmentManager());
+        sharedPreference = new SharedPreference(getActivity());
 
         Button btn = (Button) view.findViewById(R.id.submit);
         final EditText unameEt = (EditText) view.findViewById(R.id.username);
@@ -44,6 +46,7 @@ public class FragementOne extends Fragment{
                 f2.setArguments(bundle);
 
                 common.getPage(frame,f2);
+                sharedPreference.storeData(uname);
             }
         });
 
